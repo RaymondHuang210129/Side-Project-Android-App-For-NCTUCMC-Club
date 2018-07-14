@@ -1,4 +1,3 @@
-
 # 交大國樂小助手 NCTUCMC
 ### 簡介 Intro
 初次深入接觸Android development，幫國樂社寫一個琴房借用系統，順便嘗試達成理想的功能：
@@ -7,9 +6,10 @@
 - 社員調查系統：填寫練出席表、活動時間投票、意見投票等等
 
 
-<<<<<<< HEAD
+
 ### 更新記錄 Update logs
 ##### alpha-1.1.1: 
+
 - change log:
  1. Minor change: actionBar, navigationView & statusBar color changes when fragments are switched. 
 
@@ -24,7 +24,7 @@
    **-- unsolve --**
  
 
-<<<<<<< HEAD
+
 ##### alpha-1.0.0: 
 - change log:
  1. Initial commit
