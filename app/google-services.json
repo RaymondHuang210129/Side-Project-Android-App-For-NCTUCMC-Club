@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "362651364822",
+    "firebase_url": "https://nctucmc-daba1.firebaseio.com",
+    "project_id": "nctucmc-daba1",
+    "storage_bucket": "nctucmc-daba1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:362651364822:android:e08677ce8ec2f025",
+        "android_client_info": {
+          "package_name": "com.raymond210129.nctucmc"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "362651364822-kgbgv2btkqdcgjsff8mer0il20pjqsr3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.raymond210129.nctucmc",
+            "certificate_hash": "2ff63b2468b33e359945e337c1a52282a810c88c"
+          }
+        },
+        {
+          "client_id": "362651364822-do8sr398tkl3repjlog6ijmdrv09l82c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCnnrljOO8qAIP8OF3I0Qfan_1n6I4ypH0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "362651364822-do8sr398tkl3repjlog6ijmdrv09l82c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

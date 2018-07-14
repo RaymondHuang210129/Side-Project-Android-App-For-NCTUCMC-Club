@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">交大國樂</string>
+    <string name="title_home">首頁</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="hint_user_name">姓名</string>
+    <string name="hint_user_password">密碼</string>
+    <string name="hint_email">電子郵件</string>
+    <string name="hint_password">密碼</string>
+    <string name="hint_certificate">跟社長要驗證碼</string>
+    <string name="hint_name">全名</string>
+    <string name="btn_login">登入</string>
+    <string name="btn_register">註冊</string>
+    <string name="btn_link_to_register"><u>邊緣人沒帳號？還不快辦一個。</u></string>
+    <string name="btn_link_to_login"><u>都已經註冊了還不趕快給我點回去= =</u></string>
+    <string name="welcome">歡迎</string>
+    <string name="btn_logout">登出</string>
+    <string name="name">全名</string>
+    <string name="comment_board">留言板</string>
+    <string name="booking_system">琴房預約</string>
+    <string name="notifications">通知</string>
+    <string name="poll">調查</string>
+    <string name="settings">帳號設定</string>
+    <string name="logout">登出</string>
+    <string name="confirm_date">查詢日期</string>
+    <string name="change_password_title">變更密碼</string>
+    <string name="old_password">　　舊密碼：</string>
+    <string name="new_password">　　新密碼：</string>
+    <string name="confirm_new_password">確認新密碼：</string>
+    <string name="confirm_change">確認變更</string>
+    <string name="booking_tips">點選按鈕即可預約該時段，長按按鈕可取消；若該時段已被借用，則顯示目前已預約之使用者</string>
+    <string name="message_hint">寫點訊息，發點廢文</string>
+
+</resources>

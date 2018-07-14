@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_comment_board"
+        android:checked="true"
+        android:orderInCategory="0"
+        android:icon="@drawable/icons8_comments_24"
+        android:title="@string/comment_board"/>
+    <item
+        android:id="@+id/menu_booking_system"
+        android:orderInCategory="1"
+        android:icon="@drawable/icons8_booking_24"
+        android:title="@string/booking_system" />
+    <item
+        android:id="@+id/menu_notifications"
+        android:orderInCategory="2"
+        android:icon="@drawable/icons8_notification_24"
+        android:title="@string/notifications"/>
+    <item
+        android:id="@+id/menu_poll"
+        android:orderInCategory="3"
+        android:icon="@drawable/icons8_survey_24"
+        android:title="@string/poll"/>
+</menu>
+
