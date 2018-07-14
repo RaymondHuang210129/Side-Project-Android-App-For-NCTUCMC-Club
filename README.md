@@ -1,17 +1,31 @@
+<<<<<<< HEAD
 # 交大國樂小助手 NCTUCMC
 ### 簡介 Intro
+=======
+#交大國樂小助手 NCTUCMC
+###簡介 Intro###
+>>>>>>> a05a21c85a02b2e8daf7402305908074698e9c3c
 初次深入接觸Android development，幫國樂社寫一個琴房借用系統，順便嘗試達成理想的功能：
 - 社團聊天室、群組聊天室
 - 重要事件通知
 - 社員調查系統：填寫練出席表、活動時間投票、意見投票等等
 
 
+<<<<<<< HEAD
 ### 更新記錄 Update logs
 ##### alpha-1.1.1: 
 - change log:
  1. Minor change: actionBar, navigationView & statusBar color changes when fragments are switched. 
 
 ##### alpha-1.1.0: 
+=======
+###更新記錄 Update logs
+#####alpha-1.1.1: 
+- change log:
+ 1. Minor change: actionBar, navigationView & statusBar color changes when fragments are switched. 
+
+#####alpha-1.1.0: 
+>>>>>>> a05a21c85a02b2e8daf7402305908074698e9c3c
 - change log:
  1. Group chatroom has been realized with google Firebase. 
  
@@ -22,7 +36,11 @@
    **-- unsolve --**
  
 
+<<<<<<< HEAD
 ##### alpha-1.0.0: 
+=======
+#####alpha-1.0.0: 
+>>>>>>> a05a21c85a02b2e8daf7402305908074698e9c3c
 - change log:
  1. Initial commit
  2. Simple login system: using NCTUCS database system & apache on CS workstation
