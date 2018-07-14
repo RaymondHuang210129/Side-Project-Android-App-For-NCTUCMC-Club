@@ -1,15 +1,18 @@
 package com.raymond210129.nctucmc.activity.Main;
 
+import android.app.ActionBar;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.DatePicker;
 
@@ -34,6 +37,8 @@ public class Main_booking extends Fragment
         final DatePicker datePicker = view.findViewById(R.id.booking_calender);
         pDialog = new ProgressDialog(getContext());
         hideDialog();
+
+
 
         //CalendarView calendarView = view.findViewById(R.id.booking_calender);
 
@@ -72,6 +77,7 @@ public class Main_booking extends Fragment
     {
         super.onResume();
         hideDialog();
+
     }
 
     private void showDialog() {

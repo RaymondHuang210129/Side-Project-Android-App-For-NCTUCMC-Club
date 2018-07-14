@@ -21,4 +21,10 @@
     <color name="booking_background">#f6ced8</color>
     <color name="notification_background">#cef6ce</color>
     <color name="poll_background">#f5ecce</color>
+    <color name="commentPrimaryDark">#a20037</color>
+    <color name="bookingPrimary">#c90044</color>
+    <color name="noificationPrimaryDark">#167616</color>
+    <color name="notificationPrimary">#1c971c</color>
+    <color name="pollPrimaryDark">#c17300</color>
+    <color name="pollPrimary">#e88a00</color>
 </resources>

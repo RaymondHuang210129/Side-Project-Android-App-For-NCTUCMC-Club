@@ -1,13 +1,16 @@
 package com.raymond210129.nctucmc.activity;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -21,6 +24,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.Window;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -106,11 +110,14 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
         viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
+
                 switch(position)
                 {
                     case 0:
+                        //changeStatusBarColor(0);
                         return main_comment;
                     case 1:
+                        //changeStatusBarColor(1);
                         return main_booking;
                     case 2:
                         return main_notification;
@@ -156,9 +163,11 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
                 {
                     case R.id.menu_comment_board:
                         viewPager.setCurrentItem(0);
+                        //changeStatusBarColor(0);
                         break;
                     case R.id.menu_booking_system:
                         viewPager.setCurrentItem(1);
+                        //changeStatusBarColor(1);
                         break;
                     case R.id.menu_notifications:
                         viewPager.setCurrentItem(2);
@@ -171,6 +180,8 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
                 return true;
             }
         });
+
+
 
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
@@ -195,6 +206,43 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
                 }
         );
 
+    }
+
+    public void changeStatusBarColor(int page)
+    {
+        Window window = getWindow();
+        ActionBar actionBar = getSupportActionBar();
+        View header = navigationView.getHeaderView(0);
+
+        if(page == 0)
+        {
+            window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimaryDark));
+            bottomNavigationView.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
+            actionBar.setBackgroundDrawable(new ColorDrawable(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary)));
+            header.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimaryDark));
+
+        }
+        else if(page == 1)
+        {
+            window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.commentPrimaryDark));
+            bottomNavigationView.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.bookingPrimary));
+            actionBar.setBackgroundDrawable(new ColorDrawable(ContextCompat.getColor(getApplicationContext(), R.color.bookingPrimary)));
+            header.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.commentPrimaryDark));
+        }
+        else if(page == 2)
+        {
+            window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.noificationPrimaryDark));
+            bottomNavigationView.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.notificationPrimary));
+            actionBar.setBackgroundDrawable(new ColorDrawable(ContextCompat.getColor(getApplicationContext(), R.color.notificationPrimary)));
+            header.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.noificationPrimaryDark));
+        }
+        else
+        {
+            window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.pollPrimaryDark));
+            bottomNavigationView.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.pollPrimary));
+            actionBar.setBackgroundDrawable(new ColorDrawable(ContextCompat.getColor(getApplicationContext(), R.color.pollPrimary)));
+            header.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.pollPrimaryDark));
+        }
     }
 
 
@@ -252,7 +300,7 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels)
     {
-
+        changeStatusBarColor(position);
     }
 
     @Override
