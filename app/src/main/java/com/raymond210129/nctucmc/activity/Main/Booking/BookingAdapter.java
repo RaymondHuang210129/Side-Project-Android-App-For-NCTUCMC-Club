@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,6 +37,9 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -97,8 +101,17 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.ViewHold
     {
         int time = Integer.parseInt(mData.get(position).getFirst()) + 1;
         viewHolder.textItem.setText(mData.get(position).getFirst() + ":00 ~ " + time + ":00");
-       // viewHolder.button.setText(mData.get(position).getThird());
-        viewHolder.button.setEnabled(!(!mData.get(position).getSecond().equals("") && !mData.get(position).getSecond().equals(mData.get(position).getForth()))); // 有人且不是自己
+        String date = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
+        int currentSlot = Integer.parseInt(new SimpleDateFormat("HH").format(Calendar.getInstance().getTime()));
+        if(mData.get(position).getThird().compareTo(date) < 0 || (mData.get(position).getThird().compareTo(date) == 0 && currentSlot >= position))
+        {
+            viewHolder.button.setEnabled(false);
+        }
+        else
+        {
+            viewHolder.button.setEnabled(!(!mData.get(position).getSecond().equals("") && !mData.get(position).getSecond().equals(mData.get(position).getForth()))); // 有人且不是自己
+
+        }
         if(!mData.get(position).getSecond().equals("") && !mData.get(position).getSecond().equals(mData.get(position).getForth()))
         {
             viewHolder.button.setText(mData.get(position).getSecond());

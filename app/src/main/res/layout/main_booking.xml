@@ -20,7 +20,7 @@
         android:background="@color/booking_background">
 
 
-        <ScrollView
+        <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="16dp"
@@ -32,35 +32,50 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <LinearLayout
+            <android.support.v4.widget.NestedScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="0dp"
+                android:fillViewport="true"
+                app:layout_constraintBottom_toTopOf="@+id/confirm_date"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <DatePicker
+                    android:id="@+id/booking_calender"
                     android:layout_width="match_parent"
-                    android:layout_height="383dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginEnd="0dp"
+                    android:layout_marginStart="0dp"
                     android:calendarViewShown="false"
                     android:clipToPadding="false"
                     android:datePickerMode="calendar"
                     android:fadeScrollbars="true"
-                    android:id="@+id/booking_calender"/>
+                    app:layout_constraintBottom_toTopOf="@+id/confirm_date"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </android.support.v4.widget.NestedScrollView>
 
-                <Button
-                    android:id="@+id/confirm_date"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/confirm_date"
-                    android:layout_marginTop="20dip"
-                    android:background="@color/btn_login_bg"
-                    android:textColor="@color/colorAccent"
-                    />
+            <Button
+                android:id="@+id/confirm_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="0dp"
+                android:layout_marginStart="0dp"
+                android:background="@color/btn_login_bg"
+                android:text="@string/confirm_date"
+                android:textColor="@color/colorAccent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
 
-            </LinearLayout>
 
 
-        </ScrollView>
+
+        </android.support.constraint.ConstraintLayout>
     </android.support.constraint.ConstraintLayout>
 
 </android.support.constraint.ConstraintLayout>

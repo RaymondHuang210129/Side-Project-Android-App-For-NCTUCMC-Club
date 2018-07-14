@@ -8,6 +8,15 @@
 
 
 ### 更新記錄 Update logs
+
+##### alpha-1.1.2:
+- change log:
+ 1. Minor change: reservation layout in main page has been rearranged to adapt different screen size more correctly.
+ 2. Bug fixed: reason of ANR in api 23 (6.0) has been recognized and solved, because of the fact that BottomNavigationView is contain in new released library which is uncompatable with api 23.
+
+- bugs:
+ 1. Contents of NavigationView do not show in application on android api 23, user is unable to logout or change password. **-- unsolve --**
+
 ##### alpha-1.1.1: 
 
 - change log:
@@ -21,7 +30,7 @@
  1. Application crashes on android api 23 (6.0), error log:
  > android.view.InflateException: Binary XML file line #28: Binary XML file line #28: Error inflating class android.support.design.widget.BottomNavigationView
 
-   **-- unsolve --**
+   ***-- solved --***
  
 
 
