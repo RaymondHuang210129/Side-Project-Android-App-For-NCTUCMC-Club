@@ -9,6 +9,14 @@
 
 ### 更新記錄 Update logs
 
+##### alpha-1.2.0:
+- change log:
+ 1. Implement notification service with Firebase realtime database and Firebase functions, which will be fired when users send messages in chatroom.
+ 2. Reallocate the messages data structure in database, apps with old version may not work properly.
+
+- bugs:
+ 1. Notification traps can't be collapsed while using collapseKey and tag. looking for other alternative method. **-- unsolve --**
+
 ##### alpha-1.1.2:
 - change log:
  1. Minor change: reservation layout in main page has been rearranged to adapt different screen size more correctly.

@@ -30,7 +30,10 @@ import android.view.Window;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.android.gms.common.api.GoogleApiActivity;
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.raymond210129.nctucmc.R;
 
 import com.raymond210129.nctucmc.activity.Main.Main_booking;
@@ -75,6 +78,9 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        GoogleApiAvailability.getInstance().makeGooglePlayServicesAvailable(this);
+
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
         {
             setContentView(R.layout.activity_main);
@@ -108,6 +114,8 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
         String name = user.get("name");
 
         drawerUserName.setText("哈囉，" +  name);
+
+        FirebaseMessaging.getInstance().subscribeToTopic("Comment");
 
 
 

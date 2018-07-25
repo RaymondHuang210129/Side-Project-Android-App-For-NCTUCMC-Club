@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseListAdapter;
+import com.firebase.ui.database.FirebaseListOptions;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -44,41 +46,20 @@ public class Main_comment extends Fragment
         send = view.findViewById(R.id.send_message);
         messageInput = view.findViewById(R.id.message_input);
         db = new SQLiteHandler(getContext());
-        FirebaseApp.initializeApp(getContext());
 
 
-        ListView listOfMessages = view.findViewById(R.id.messages_view);
+
+        //ListView listOfMessages = view.findViewById(R.id.messages_view);
 
 
-        /*
-        query = FirebaseDatabase.getInstance().getReference();
-        FirebaseListOptions options = new FirebaseListOptions.Builder<ChatMessage>().setQuery(query, ChatMessage.class).setLayout(R.layout.others_message).build();
 
+        query = FirebaseDatabase.getInstance().getReference().child("Comment");
+        FirebaseListOptions options = new FirebaseListOptions.Builder<ChatMessage>().setLifecycleOwner(getActivity()).setQuery(query, ChatMessage.class).setLayout(R.layout.others_message).build();
+        listview = view.findViewById(R.id.messages_view);
         adapter = new FirebaseListAdapter<ChatMessage>(options) {
             @Override
             protected void populateView(View v, ChatMessage model, int position) {
                 // Get references to the views of message.xml
-                Log.d(TAG, "test");
-                Toast.makeText(getActivity(), "test", Toast.LENGTH_SHORT).show();
-                TextView messageText = v.findViewById(R.id.others_message_body);
-                TextView messageUser = v.findViewById(R.id.others_message_name);
-                TextView messageTime = v.findViewById(R.id.others_message_time);
-
-                // Set their text
-                messageText.setText(model.getMessageText());
-                messageUser.setText(model.getMessaageUser());
-
-                // Format the date before showing it
-                messageTime.setText(DateFormat.format("yyyy-MM-dd HH:mm", model.getMessageTime()) + " 發送");
-            }
-        };
-        */
-        FirebaseApp.initializeApp(getContext());
-        databaseReference = FirebaseDatabase.getInstance().getReference();
-        listview = view.findViewById(R.id.messages_view);
-        adapter = new FirebaseListAdapter<ChatMessage>(getActivity(), ChatMessage.class, R.layout.others_message, databaseReference) {
-            @Override
-            protected void populateView(View v, ChatMessage model, int position) {
                 //Log.d(TAG, "test");
                 //Toast.makeText(getActivity(), "test", Toast.LENGTH_SHORT).show();
                 TextView messageText = v.findViewById(R.id.others_message_body);
@@ -93,6 +74,8 @@ public class Main_comment extends Fragment
                 messageTime.setText(DateFormat.format("yyyy-MM-dd HH:mm", model.getMessageTime()) + " 發送");
             }
         };
+
+
         listview.setAdapter(adapter);
 
 
@@ -104,9 +87,9 @@ public class Main_comment extends Fragment
 
             @Override
             public void onClick(View view) {
-                if(!messageInput.getText().toString().equals(""))
+                if(!messageInput.getText().toString().trim().equals(""))
                 {
-                    FirebaseDatabase.getInstance().getReference().push().setValue(new ChatMessage(messageInput.getText().toString(), getCurrentUser()));
+                    FirebaseDatabase.getInstance().getReference().child("Comment").push().setValue(new ChatMessage(messageInput.getText().toString().trim(), getCurrentUser()));
                     messageInput.setText("");
                 }
                 else
@@ -122,6 +105,7 @@ public class Main_comment extends Fragment
     public void onStart()
     {
         super.onStart();
+        listview.setAdapter(adapter);
 
     }
 

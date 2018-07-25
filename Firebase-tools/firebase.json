@@ -1,0 +1,7 @@
+{
+  "functions": {
+    "predeploy": [
+      "npm --prefix \"D:\\Android\\Side-Project-Android-App-For-NCTUCMC-Club-master\\Side-Project-Android-App-For-NCTUCMC-Club-master\\Firebase-tools\\functions\" run lint"
+    ]
+  }
+}
