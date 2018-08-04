@@ -8,6 +8,7 @@
             android:title="@string/settings"/>
 
         <item
+
             android:id="@+id/drawer_logout"
             android:icon="@drawable/icons8_shutdown_96"
             android:title="@string/logout"/>

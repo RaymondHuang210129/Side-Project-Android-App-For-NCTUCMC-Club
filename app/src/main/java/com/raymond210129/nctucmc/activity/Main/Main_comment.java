@@ -42,6 +42,7 @@ public class Main_comment extends Fragment
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
     {
+        super.onCreateView(inflater, container, savedInstanceState);
         view =  inflater.inflate(R.layout.main_comment, container, false);
         send = view.findViewById(R.id.send_message);
         messageInput = view.findViewById(R.id.message_input);
@@ -54,7 +55,8 @@ public class Main_comment extends Fragment
 
 
         query = FirebaseDatabase.getInstance().getReference().child("Comment");
-        FirebaseListOptions options = new FirebaseListOptions.Builder<ChatMessage>().setLifecycleOwner(getActivity()).setQuery(query, ChatMessage.class).setLayout(R.layout.others_message).build();
+        FirebaseListOptions options = new FirebaseListOptions.Builder<ChatMessage>().setLifecycleOwner(getActivity())
+                .setQuery(query, ChatMessage.class).setLayout(R.layout.others_message).build();
         listview = view.findViewById(R.id.messages_view);
         adapter = new FirebaseListAdapter<ChatMessage>(options) {
             @Override
@@ -89,7 +91,8 @@ public class Main_comment extends Fragment
             public void onClick(View view) {
                 if(!messageInput.getText().toString().trim().equals(""))
                 {
-                    FirebaseDatabase.getInstance().getReference().child("Comment").push().setValue(new ChatMessage(messageInput.getText().toString().trim(), getCurrentUser()));
+                    FirebaseDatabase.getInstance().getReference().child("Comment").push()
+                            .setValue(new ChatMessage(messageInput.getText().toString().trim(), getCurrentUser()));
                     messageInput.setText("");
                 }
                 else

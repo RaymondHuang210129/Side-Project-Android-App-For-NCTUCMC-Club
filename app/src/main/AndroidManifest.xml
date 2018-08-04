@@ -37,7 +37,12 @@
             android:launchMode="standard"
             android:theme="@style/AppThemeActionBar"/>
         <activity
-            android:name=".activity.Main.Booking.Booking_Search"
+            android:name=".activity.Main.notification.CreateNotification"
+            android:label="@string/app_name"
+            android:launchMode="standard"
+            android:theme="@style/AppThemeActionBar"/>
+        <activity
+            android:name=".activity.Main.booking.Booking_Search"
             android:label="@string/app_name"
             android:launchMode="standard"
             android:theme="@style/AppThemeActionBar"/>

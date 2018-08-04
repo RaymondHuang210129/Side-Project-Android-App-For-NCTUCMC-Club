@@ -1,25 +1,19 @@
 package com.raymond210129.nctucmc.activity.Main;
 
-import android.app.ActionBar;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.DatePicker;
 
 import com.raymond210129.nctucmc.R;
-import com.raymond210129.nctucmc.activity.Main.Booking.Booking_Search;
-
-import java.time.format.DateTimeFormatter;
+import com.raymond210129.nctucmc.activity.Main.booking.Booking_Search;
 
 
 public class Main_booking extends Fragment
@@ -32,6 +26,7 @@ public class Main_booking extends Fragment
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
     {
+        super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.main_booking, container, false);
         Button confirmDate = view.findViewById(R.id.confirm_date);
         final DatePicker datePicker = view.findViewById(R.id.booking_calender);

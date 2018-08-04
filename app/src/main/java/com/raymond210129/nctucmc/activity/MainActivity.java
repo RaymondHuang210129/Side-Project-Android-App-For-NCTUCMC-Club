@@ -2,7 +2,10 @@ package com.raymond210129.nctucmc.activity;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.support.annotation.NonNull;
@@ -13,6 +16,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -30,9 +34,12 @@ import android.view.Window;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
+import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.GoogleApiActivity;
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.raymond210129.nctucmc.R;
 
@@ -44,12 +51,13 @@ import com.raymond210129.nctucmc.activity.Main.SettingActivity;
 import com.raymond210129.nctucmc.helper.SQLiteHandler;
 import com.raymond210129.nctucmc.helper.SessionManager;
 
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener {
     private DrawerLayout mDrawerLayout;
-    private BottomNavigationView bottomNavigationView;
+    private AHBottomNavigation bottomNavigationView;
     private TabLayout tabLayout;
 
 
@@ -78,6 +86,8 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        LocalBroadcastManager.getInstance(this).registerReceiver(broadcastReceiver, new IntentFilter("com.raymond210129.nctucmc_COMMENT_MESSAGE"));
 
         GoogleApiAvailability.getInstance().makeGooglePlayServicesAvailable(this);
 
@@ -116,6 +126,8 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
         drawerUserName.setText("哈囉，" +  name);
 
         FirebaseMessaging.getInstance().subscribeToTopic("Comment");
+        FirebaseMessaging.getInstance().subscribeToTopic("groupAll");
+
 
 
 
@@ -202,8 +214,54 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
         {
             bottomNavigationView = findViewById(R.id.bottomview);
 
-            bottomNavigationView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener);
+            bottomNavigationView.setInactiveColor(ContextCompat.getColor(getApplicationContext(), R.color.input_login_hint));
+            bottomNavigationView.setAccentColor(ContextCompat.getColor(getApplicationContext(), R.color.white));
 
+            AHBottomNavigationItem itemComment = new AHBottomNavigationItem(R.string.comment_board, R.drawable.icons8_comments_24, R.color.colorPrimary);
+            AHBottomNavigationItem itemBooking = new AHBottomNavigationItem(R.string.booking_system, R.drawable.icons8_booking_24, R.color.bookingPrimary);
+            AHBottomNavigationItem itemNotification = new AHBottomNavigationItem(R.string.notifications, R.drawable.icons8_notification_24, R.color.notificationPrimary);
+            AHBottomNavigationItem itemPoll = new AHBottomNavigationItem(R.string.poll, R.drawable.icons8_survey_24, R.color.pollPrimary);
+
+            bottomNavigationView.addItem(itemComment);
+            bottomNavigationView.addItem(itemBooking);
+            bottomNavigationView.addItem(itemNotification);
+            bottomNavigationView.addItem(itemPoll);
+
+            //bottomNavigationView.setColored(true);
+            //bottomNavigationView.setNotification("1", 3);
+
+            bottomNavigationView.setDefaultBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
+
+            bottomNavigationView.setOnTabSelectedListener(new AHBottomNavigation.OnTabSelectedListener() {
+                @Override
+                public boolean onTabSelected(int position, boolean wasSelected) {
+                    switch (position)
+                    {
+                        case 0:
+                            viewPager.setCurrentItem(0);
+                            changeStatusBarColor(0);
+                            Commentcount = 0;
+                            updateNotification();
+                            break;
+                        case 1:
+                            viewPager.setCurrentItem(1);
+                            changeStatusBarColor(1);
+                            break;
+                        case 2:
+                            viewPager.setCurrentItem(2);
+                            changeStatusBarColor(2);
+                            break;
+                        case 3:
+                            viewPager.setCurrentItem(3);
+                            changeStatusBarColor(3);
+                            break;
+                    }
+                    return true;
+                }
+            });
+            //bottomNavigationView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener);
+
+            /*
             bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override
                 public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -229,6 +287,7 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
                     return true;
                 }
             });
+            */
         }
         else
         {
@@ -247,6 +306,8 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
                 @Override
                 public void onTabSelected(TabLayout.Tab tab) {
                     viewPager.setCurrentItem(tab.getPosition());
+                    changeStatusBarColor(tab.getPosition());
+
                 }
 
                 @Override
@@ -276,7 +337,8 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
             window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimaryDark));
             if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
             {
-                bottomNavigationView.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
+                bottomNavigationView.setDefaultBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
+
             }
             else
             {
@@ -292,7 +354,7 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
             window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.commentPrimaryDark));
             if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
             {
-                bottomNavigationView.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.bookingPrimary));
+                bottomNavigationView.setDefaultBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.bookingPrimary));
             }
             else
             {
@@ -307,7 +369,8 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
             window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.noificationPrimaryDark));
             if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
             {
-                bottomNavigationView.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.notificationPrimary));
+                bottomNavigationView.setDefaultBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.notificationPrimary));
+                bottomNavigationView.setDefaultBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.notificationPrimary));
             }
             else
             {
@@ -322,7 +385,7 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
             window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.pollPrimaryDark));
             if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
             {
-                bottomNavigationView.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.pollPrimary));
+                bottomNavigationView.setDefaultBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.pollPrimary));
             }
             else
             {
@@ -389,7 +452,7 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels)
     {
-        changeStatusBarColor(position);
+        //changeStatusBarColor(position);
     }
 
     @Override
@@ -397,7 +460,8 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
     {
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
         {
-            bottomNavigationView.getMenu().getItem(position).setChecked(true);
+            //bottomNavigationView.getMenu().getItem(position).setChecked(true);
+            bottomNavigationView.setCurrentItem(position);
         }
         else
         {
@@ -409,5 +473,39 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
     public void onPageScrollStateChanged(int state)
     {
 
+    }
+
+
+    static int Commentcount = 0;
+    private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+            if(viewPager.getCurrentItem() != 0)
+            {
+                int count = intent.getIntExtra("Comment", 0);
+                Commentcount += count;
+                updateNotification();
+            }
+
+        }
+    };
+
+    private void updateNotification()
+    {
+        if(Commentcount == 0)
+        {
+            bottomNavigationView.setNotification("", 0);
+        }
+        else
+        {
+            bottomNavigationView.setNotification(Integer.toString(Commentcount), 0);
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(broadcastReceiver);
     }
 }

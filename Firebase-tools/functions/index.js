@@ -42,7 +42,46 @@ exports.notifyWhenSend = functions.database.ref('/Comment/{message}').onWrite((c
         .catch((error) => {
             console.log('Error sending message:', error);
         });
-
-   
-    
 });
+
+exports.notifyWhenPost = functions.database.ref('/Notifications/{post}').onCreate((snapshot, context) => {
+    const topic = snapshot.child('topic').val();
+    const rank = snapshot.child('rank').val();
+    const title = snapshot.child('title').val();
+    const content = snapshot.child('content').val();
+    var priority;
+
+    if (rank === 'high') {
+        priority = 'HIGH';
+    }
+    else
+    {
+        priority = 'NORMAL';
+    }
+
+    var message = {
+        notification: {
+            title: title,
+            body: content
+        },
+        android: {
+            collapse_key: 'Post',
+            priority: priority,
+            notification: {
+                sound: 'default',
+                tag: 'Post'
+            }
+        },
+        topic: topic
+    };
+
+    return admin.messaging().send(message)
+        .then((response) => {
+            // Response is a message ID string.
+            console.log('Successfully sent message:', response);
+            return Promise.all([]);
+        })
+        .catch((error) => {
+            console.log('Error sending message:', error);
+        });
+})

@@ -9,6 +9,12 @@
 
 ### 更新記錄 Update logs
 
+##### alpha-1.3.0:
+- change log:
+ 1. Implement bulletin system with Firebase realtime database, user can post announcements with different kinds of ranks, and send notifications with different priority. several features will be added correspondingly in near future including multicast posts, user group profile, and scheduled notifications.
+ 2. rearrange the calender selector to adapt in different screen sizes.
+ 3. Replacing the original BottomNavigationView to Third party package AHBottomNavigation and Clan's FloatActionButton. background color transmition will be acted more reasonably.
+
 ##### alpha-1.2.0:
 - change log:
  1. Implement notification service with Firebase realtime database and Firebase functions, which will be fired when users send messages in chatroom.

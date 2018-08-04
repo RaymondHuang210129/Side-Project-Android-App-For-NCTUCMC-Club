@@ -9,10 +9,11 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginBottom="12dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp"
+        android:elevation="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -34,28 +35,33 @@
 
             <android.support.v4.widget.NestedScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:layout_marginBottom="8dp"
-                android:layout_marginTop="0dp"
                 android:fillViewport="true"
                 app:layout_constraintBottom_toTopOf="@+id/confirm_date"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <DatePicker
-                    android:id="@+id/booking_calender"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginEnd="0dp"
-                    android:layout_marginStart="0dp"
-                    android:calendarViewShown="false"
-                    android:clipToPadding="false"
-                    android:datePickerMode="calendar"
-                    android:fadeScrollbars="true"
-                    app:layout_constraintBottom_toTopOf="@+id/confirm_date"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:orientation="vertical">
+
+                    <DatePicker
+                        android:id="@+id/booking_calender"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginEnd="0dp"
+                        android:layout_marginStart="0dp"
+                        android:calendarViewShown="false"
+                        android:clipToPadding="false"
+                        android:datePickerMode="calendar"
+                        android:fadeScrollbars="true"
+                        app:layout_constraintBottom_toTopOf="@+id/confirm_date"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </LinearLayout>
             </android.support.v4.widget.NestedScrollView>
 
             <Button
@@ -70,9 +76,6 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
-
-
-
 
 
         </android.support.constraint.ConstraintLayout>

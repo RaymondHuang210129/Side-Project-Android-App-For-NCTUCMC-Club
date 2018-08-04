@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingVertical="0dp"
+    android:paddingTop="0dp"
+    android:paddingBottom="0dp"
     android:paddingLeft="0dp"
     android:paddingRight="60dp"
     android:id="@+id/others_message"
@@ -36,8 +37,10 @@
         android:layout_marginTop="3dp"
         android:background="@drawable/others_message"
         android:elevation="2dp"
-        android:paddingHorizontal="16dp"
-        android:paddingVertical="6dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingTop="6dp"
+        android:paddingBottom="6dp"
         android:text="How are you doing? This is a long message that should probably wrap."
         android:textSize="18dp" />
 

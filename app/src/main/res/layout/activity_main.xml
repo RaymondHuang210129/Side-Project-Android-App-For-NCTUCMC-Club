@@ -25,7 +25,7 @@
             android:layout_height="match_parent"
             android:longClickable="false">
 
-            <android.support.design.widget.BottomNavigationView
+            <com.aurelhubert.ahbottomnavigation.AHBottomNavigation
                 android:id="@+id/bottomview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
