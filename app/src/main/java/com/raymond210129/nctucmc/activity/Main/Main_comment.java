@@ -1,5 +1,6 @@
 package com.raymond210129.nctucmc.activity.Main;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -21,6 +22,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.raymond210129.nctucmc.R;
+import com.raymond210129.nctucmc.activity.Main.booking.Booking_Search;
+import com.raymond210129.nctucmc.activity.MainActivity;
+import com.raymond210129.nctucmc.activity.PasswordSettingActivity;
+import com.raymond210129.nctucmc.activity.SubscriptionSettingActivity;
 import com.raymond210129.nctucmc.dataStructure.ChatMessage;
 import com.raymond210129.nctucmc.helper.SQLiteHandler;
 
@@ -91,9 +96,30 @@ public class Main_comment extends Fragment
             public void onClick(View view) {
                 if(!messageInput.getText().toString().trim().equals(""))
                 {
-                    FirebaseDatabase.getInstance().getReference().child("Comment").push()
-                            .setValue(new ChatMessage(messageInput.getText().toString().trim(), getCurrentUser()));
-                    messageInput.setText("");
+                    if(messageInput.getText().toString().trim().equals(":change password"))
+                    {
+                        messageInput.setText("");
+                        Intent intent = new Intent(Main_comment.this.getActivity(), PasswordSettingActivity.class );
+                        startActivity(intent);
+                    }
+                    else if (messageInput.getText().toString().trim().equals(":log out"))
+                    {
+                        MainActivity activity = (MainActivity) getActivity();
+                        activity.logoutUser();
+                    }
+                    else if (messageInput.getText().toString().trim().equals(":group setting"))
+                    {
+                        messageInput.setText("");
+                        Intent intent = new Intent(Main_comment.this.getActivity(), SubscriptionSettingActivity.class );
+                        startActivity(intent);
+                    }
+                    else
+                    {
+                        FirebaseDatabase.getInstance().getReference().child("Comment").push()
+                                .setValue(new ChatMessage(messageInput.getText().toString().trim(), getCurrentUser()));
+                        messageInput.setText("");
+                    }
+
                 }
                 else
                 {

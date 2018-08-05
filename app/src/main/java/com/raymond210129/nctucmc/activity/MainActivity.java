@@ -1,7 +1,6 @@
 package com.raymond210129.nctucmc.activity;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -9,7 +8,6 @@ import android.content.IntentFilter;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.support.annotation.NonNull;
-import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -23,10 +21,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -37,9 +32,11 @@ import android.widget.Toast;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.google.android.gms.common.GoogleApiAvailability;
-import com.google.android.gms.common.api.GoogleApiActivity;
-import com.google.firebase.FirebaseApp;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.raymond210129.nctucmc.R;
 
@@ -47,11 +44,12 @@ import com.raymond210129.nctucmc.activity.Main.Main_booking;
 import com.raymond210129.nctucmc.activity.Main.Main_comment;
 import com.raymond210129.nctucmc.activity.Main.Main_notification;
 import com.raymond210129.nctucmc.activity.Main.Main_poll;
-import com.raymond210129.nctucmc.activity.Main.SettingActivity;
+import com.raymond210129.nctucmc.dataStructure.UserSubscription;
 import com.raymond210129.nctucmc.helper.SQLiteHandler;
 import com.raymond210129.nctucmc.helper.SessionManager;
 
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -106,6 +104,7 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
         toolbar = findViewById(R.id.toolbar);
 
         navigationView = findViewById(R.id.nav_view);
+
         View headerView = navigationView.getHeaderView(0);
         TextView drawerUserName = headerView.findViewById(R.id.drawer_username);
 
@@ -119,14 +118,45 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
         {
             logoutUser();
         }
-        HashMap<String, String> user;
+        final HashMap<String, String> user;
         user = db.getUserDetails();
-        String name = user.get("name");
+        final String name = user.get("name");
 
         drawerUserName.setText("哈囉，" +  name);
 
         FirebaseMessaging.getInstance().subscribeToTopic("Comment");
-        FirebaseMessaging.getInstance().subscribeToTopic("groupAll");
+
+
+        Query query = FirebaseDatabase.getInstance().getReference().child("UserSubscription").orderByChild("name").equalTo(name);
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                boolean exist = false;
+                for (DataSnapshot snapshot : dataSnapshot.getChildren())
+                {
+                    UserSubscription userSubscription = snapshot.getValue(UserSubscription.class);
+                    if(userSubscription.getGroupAll()) FirebaseMessaging.getInstance().subscribeToTopic("groupAll");
+                    if(userSubscription.getGroupBass()) FirebaseMessaging.getInstance().subscribeToTopic("groupBass");
+                    if(userSubscription.getGroupFlute()) FirebaseMessaging.getInstance().subscribeToTopic("groupFlute");
+                    if(userSubscription.getGroupHit()) FirebaseMessaging.getInstance().subscribeToTopic("groupHit");
+                    if(userSubscription.getGroupHu()) FirebaseMessaging.getInstance().subscribeToTopic("groupHu");
+                    if(userSubscription.getGroupLieu()) FirebaseMessaging.getInstance().subscribeToTopic("groupLieu");
+                    exist = true;
+                }
+                if(exist == false)
+                {
+                    Intent intent = new Intent(MainActivity.this, SubscriptionSettingActivity.class);
+                    startActivity(intent);
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
 
 
@@ -167,23 +197,6 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
 
         toolbar.setNavigationIcon(R.drawable.ic_baseline_menu_24px);
         setSupportActionBar(toolbar);
-       // ActionBar actionBar = getSupportActionBar();
-        //actionBar.setDefaultDisplayHomeAsUpEnabled(true);
-        //actionBar.setHomeAsUpIndicator(R.drawable.ic_baseline_menu_24px);
-
-
-
-        navigationView.setNavigationItemSelectedListener(
-                new NavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(MenuItem menuItem) {
-                        menuItem.setChecked(true);
-                        mDrawerLayout.closeDrawers();
-                        //Toast.makeText(getApplicationContext(),"Hello",Toast.LENGTH_SHORT).show();
-                        return true;
-                    }
-                });
-
 
 
         navigationView.setNavigationItemSelectedListener(
@@ -193,17 +206,21 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
                         switch(item.getItemId())
                         {
                             case R.id.drawer_logout:
+                                mDrawerLayout.closeDrawers();
                                 logoutUser();
                                 break;
 
                             case R.id.drawer_account_settings:
-                                Intent intent = new Intent(MainActivity.this, SettingActivity.class);
+                                mDrawerLayout.closeDrawers();
+                                Intent intent = new Intent(MainActivity.this, PasswordSettingActivity.class);
                                 startActivity(intent);
                                 break;
 
+                            case R.id.drawer_subscription_settings:
+                                mDrawerLayout.closeDrawers();
+                                Intent intent1 = new Intent(MainActivity.this, SubscriptionSettingActivity.class);
+                                startActivity(intent1);
                         }
-
-
                         return true;
                     }
                 }
@@ -226,9 +243,6 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
             bottomNavigationView.addItem(itemBooking);
             bottomNavigationView.addItem(itemNotification);
             bottomNavigationView.addItem(itemPoll);
-
-            //bottomNavigationView.setColored(true);
-            //bottomNavigationView.setNotification("1", 3);
 
             bottomNavigationView.setDefaultBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
 
@@ -259,35 +273,7 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
                     return true;
                 }
             });
-            //bottomNavigationView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener);
 
-            /*
-            bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-                @Override
-                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                    //Toast.makeText(getApplicationContext(),"Hello",Toast.LENGTH_SHORT).show();
-                    switch(item.getItemId())
-                    {
-                        case R.id.menu_comment_board:
-                            viewPager.setCurrentItem(0);
-                            //changeStatusBarColor(0);
-                            break;
-                        case R.id.menu_booking_system:
-                            viewPager.setCurrentItem(1);
-                            //changeStatusBarColor(1);
-                            break;
-                        case R.id.menu_notifications:
-                            viewPager.setCurrentItem(2);
-                            break;
-                        case R.id.menu_poll:
-                            viewPager.setCurrentItem(3);
-                            break;
-                    }
-
-                    return true;
-                }
-            });
-            */
         }
         else
         {
@@ -307,23 +293,15 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
                 public void onTabSelected(TabLayout.Tab tab) {
                     viewPager.setCurrentItem(tab.getPosition());
                     changeStatusBarColor(tab.getPosition());
-
                 }
-
                 @Override
                 public void onTabUnselected(TabLayout.Tab tab) {
-
                 }
-
                 @Override
                 public void onTabReselected(TabLayout.Tab tab) {
-
                 }
             });
-
         }
-
-
     }
 
     public void changeStatusBarColor(int page)
@@ -338,7 +316,6 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
             if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
             {
                 bottomNavigationView.setDefaultBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
-
             }
             else
             {
@@ -410,12 +387,10 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
         }
     }
 
-    private void logoutUser()
+    public void logoutUser()
     {
         session.setLogin(false);
-
         db.deleteUsers();
-
         Intent intent = new Intent(MainActivity.this, LoginActivity.class);
         startActivity(intent);
         finish();
@@ -440,9 +415,6 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
-
-
             viewPager.setCurrentItem(item.getOrder());
             return true;
 
@@ -470,11 +442,7 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
     }
 
     @Override
-    public void onPageScrollStateChanged(int state)
-    {
-
-    }
-
+    public void onPageScrollStateChanged(int state) { }
 
     static int Commentcount = 0;
     private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
@@ -487,7 +455,6 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
                 Commentcount += count;
                 updateNotification();
             }
-
         }
     };
 

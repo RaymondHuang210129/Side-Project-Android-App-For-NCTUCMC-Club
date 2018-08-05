@@ -1,4 +1,4 @@
-package com.raymond210129.nctucmc.activity.Main;
+package com.raymond210129.nctucmc.activity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -15,7 +15,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.raymond210129.nctucmc.R;
-import com.raymond210129.nctucmc.activity.LoginActivity;
 //import com.raymond210129.nctucmc.activity.RegisterActivity;
 import com.raymond210129.nctucmc.app.AppConfig;
 import com.raymond210129.nctucmc.app.AppController;
@@ -28,15 +27,15 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SettingActivity extends AppCompatActivity {
-    private static final String TAG = SettingActivity.class.getSimpleName();
+public class PasswordSettingActivity extends AppCompatActivity {
+    private static final String TAG = PasswordSettingActivity.class.getSimpleName();
     private ProgressDialog pDialog;
     private SQLiteHandler db;
     private SessionManager sessionManager;
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_setting);
+        setContentView(R.layout.activity_password_setting);
 
         final EditText oldPassword = findViewById(R.id.input_old_password);
         final EditText newPassword = findViewById(R.id.input_new_password);
@@ -94,7 +93,7 @@ public class SettingActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(),
                                 "密碼變更完成，請以新密碼重新登入", Toast.LENGTH_LONG)
                                 .show();
-                        Intent intent = new Intent(SettingActivity.this, LoginActivity.class);
+                        Intent intent = new Intent(PasswordSettingActivity.this, LoginActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
                         finish();

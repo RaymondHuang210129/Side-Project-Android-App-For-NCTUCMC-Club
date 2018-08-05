@@ -30,7 +30,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            android:rotation="180">
 
         </ListView>
 
@@ -42,6 +43,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginBottom="16dp"
             android:layout_marginEnd="16dp"
+            android:alpha="0.8"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             fab:menu_colorNormal="@color/notificationPrimary"
@@ -51,7 +53,7 @@
                 android:id="@+id/important_notification"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/bell"
+                android:src="@drawable/bellyellow"
                 fab:fab_colorNormal="@color/notificationPrimary"
                 fab:fab_colorPressed="@color/notificationPrimary"
                 fab:fab_label="重要公告"

@@ -30,5 +30,12 @@
     <string name="confirm_change">確認變更</string>
     <string name="booking_tips">點選按鈕即可預約該時段，長按按鈕可取消；若該時段已被借用，則顯示目前已預約之使用者</string>
     <string name="message_hint">寫點訊息，發點廢文</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
 
 </resources>

@@ -45,7 +45,7 @@ public class Main_notification extends Fragment
         super.onCreateView(inflater, container, savedInstanceState);
         view = inflater.inflate(R.layout.main_notification, container, false);
         listView = view.findViewById(R.id.notification_view);
-        query = FirebaseDatabase.getInstance().getReference().child("Notifications");
+        query = FirebaseDatabase.getInstance().getReference().child("Notifications").orderByChild("time");
         importantNotification = view.findViewById(R.id.important_notification);
         defaultNotification = view.findViewById(R.id.default_notification);
         floatingActionMenu = view.findViewById(R.id.notification_menu);
@@ -87,6 +87,8 @@ public class Main_notification extends Fragment
                 //notificationTime.setText(String.valueOf(model.getTime()));
             }
         };
+        listView.setStackFromBottom(true);
+        listView.setVerticalScrollbarPosition(View.SCROLLBAR_POSITION_LEFT);
         listView.setAdapter(adapter);
 
         importantNotification.setOnClickListener(new View.OnClickListener() {

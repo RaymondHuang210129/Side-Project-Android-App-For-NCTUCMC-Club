@@ -13,6 +13,12 @@
             android:icon="@drawable/icons8_shutdown_96"
             android:title="@string/logout"/>
 
+        <item
+            android:id="@+id/drawer_subscription_settings"
+            android:icon="@drawable/subscribe"
+            android:title="群組設定"
+            />
+
 
     </group>
 </menu>
