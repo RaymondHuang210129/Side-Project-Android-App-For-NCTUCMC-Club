@@ -1,13 +1,19 @@
 # 交大國樂小助手 NCTUCMC
 ### 簡介 Intro
 初次深入接觸Android development，幫國樂社寫一個琴房借用系統，順便嘗試達成理想的功能：
-- 社團聊天室、群組聊天室
-- 重要事件通知
+- 社團聊天室(已完成)、群組聊天室
+- 重要事件通知(已完成)
 - 社員調查系統：填寫練出席表、活動時間投票、意見投票等等
 
 
 
 ### 更新記錄 Update logs
+
+#### alpha-1.3.2
+- change log:
+ 1. Comments sent by user itself will be shown at right side in conversation box and re-colored.
+ 2. fix the datepicker layout in booking screen that is unscrollable on lower api devices (older than android M).
+ 3. force all fragments pre-render when launching the app and not to recreate the fragment view to avoid laggy switching.
 
 #### alpha-1.3.1
 - change log:

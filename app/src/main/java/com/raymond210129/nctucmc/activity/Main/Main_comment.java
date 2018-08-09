@@ -1,9 +1,12 @@
 package com.raymond210129.nctucmc.activity.Main;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
+import android.text.Layout;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -31,6 +34,8 @@ import com.raymond210129.nctucmc.helper.SQLiteHandler;
 
 import java.util.HashMap;
 
+import static com.firebase.ui.auth.AuthUI.getApplicationContext;
+
 public class Main_comment extends Fragment
 {
     private ImageButton send;
@@ -42,6 +47,8 @@ public class Main_comment extends Fragment
     public Query query;
     private ListView listview;
     View view;
+    static String name = "";
+
 
     @Nullable
     @Override
@@ -52,6 +59,11 @@ public class Main_comment extends Fragment
         send = view.findViewById(R.id.send_message);
         messageInput = view.findViewById(R.id.message_input);
         db = new SQLiteHandler(getContext());
+        if(name.equals(""))
+        {
+            name = getCurrentUser();
+        }
+
 
 
 
@@ -69,13 +81,38 @@ public class Main_comment extends Fragment
                 // Get references to the views of message.xml
                 //Log.d(TAG, "test");
                 //Toast.makeText(getActivity(), "test", Toast.LENGTH_SHORT).show();
+
+
                 TextView messageText = v.findViewById(R.id.others_message_body);
                 TextView messageUser = v.findViewById(R.id.others_message_name);
                 TextView messageTime = v.findViewById(R.id.others_message_time);
-
-                // Set their text
+                View view1 = v.findViewById(R.id.others_message);
                 messageText.setText(model.getMessageText());
                 messageUser.setText(model.getMessaageUser());
+
+
+                Drawable drawable;
+
+                if(name.equals(model.getMessaageUser()))
+                {
+                    view1.setScaleX(-1.0f);
+                    messageText.setScaleX(-1.0f);
+                    messageUser.setScaleX(-1.0f);
+                    messageTime.setScaleX(-1.0f);
+                    messageText.setBackground(getResources().getDrawable(R.drawable.my_message));
+                    messageText.setTextColor(ContextCompat.getColor(getActivity(), R.color.white));
+
+                }
+                else
+                {
+                    view1.setScaleX(1.0f);
+                    messageText.setScaleX(1.0f);
+                    messageUser.setScaleX(1.0f);
+                    messageTime.setScaleX(1.0f);
+                    messageText.setBackground(getResources().getDrawable(R.drawable.others_message));
+                    messageText.setTextColor(ContextCompat.getColor(getActivity(), R.color.input_register_hint));
+                }
+
 
                 // Format the date before showing it
                 messageTime.setText(DateFormat.format("yyyy-MM-dd HH:mm", model.getMessageTime()) + " 發送");

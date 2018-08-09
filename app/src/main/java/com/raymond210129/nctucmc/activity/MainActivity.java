@@ -187,11 +187,13 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
                 return null;
             }
 
+
             @Override
             public int getCount() {
                 return 4;
             }
         });
+        viewPager.setOffscreenPageLimit(3);
 
 
 
@@ -285,8 +287,9 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
             tabLayout.addTab(tabLayout.newTab().setText("調查"));
 
             tabLayout.setTabTextColors(ContextCompat.getColor(getApplicationContext(), R.color.input_login_hint), ContextCompat.getColor(getApplicationContext(), R.color.white));
-
-            tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
+            tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimaryDark));
+            tabLayout.setBackground(new ColorDrawable(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary)));
+            //tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
 
             tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
                 @Override
@@ -394,6 +397,7 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
         Intent intent = new Intent(MainActivity.this, LoginActivity.class);
         startActivity(intent);
         finish();
+
 
     }
 

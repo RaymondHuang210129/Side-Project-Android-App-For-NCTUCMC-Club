@@ -2,6 +2,7 @@ package com.raymond210129.nctucmc.activity.Main;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -26,12 +27,23 @@ public class Main_booking extends Fragment
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
     {
+        View view;
         super.onCreateView(inflater, container, savedInstanceState);
-        View view = inflater.inflate(R.layout.main_booking, container, false);
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+        {
+             view = inflater.inflate(R.layout.main_booking, container, false);
+        }
+        else
+        {
+            view = inflater.inflate(R.layout.main_booking_api21, container, false);
+        }
+
         Button confirmDate = view.findViewById(R.id.confirm_date);
         final DatePicker datePicker = view.findViewById(R.id.booking_calender);
         pDialog = new ProgressDialog(getContext());
         hideDialog();
+
+
 
 
 
