@@ -69,7 +69,7 @@ public class RegisterActivity extends Activity {
             finish();
         }
 
-        // Register Button Click event
+        // Register Button Click Event
         btnRegister.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 String name = inputFullName.getText().toString().trim();

@@ -19,7 +19,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ScrollView
+        <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="12dp"
@@ -31,11 +31,12 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-
-            <android.support.v7.widget.RecyclerView
+            <ListView
+                android:id="@+id/poll_list"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </ScrollView>
+                android:layout_height="match_parent"
+                android:rotation="180" />
+        </android.support.constraint.ConstraintLayout>
 
         <com.github.clans.fab.FloatingActionMenu xmlns:fab="http://schemas.android.com/apk/res-auto"
             android:id="@+id/menu"
@@ -49,7 +50,7 @@
             app:layout_constraintEnd_toEndOf="parent">
 
             <com.github.clans.fab.FloatingActionButton
-                android:id="@+id/menu_item1"
+                android:id="@+id/poll_attendance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/single_choice"
@@ -57,7 +58,7 @@
                 fab:fab_size="mini" />
 
             <com.github.clans.fab.FloatingActionButton
-                android:id="@+id/menu_item2"
+                android:id="@+id/poll_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/single_choice"
@@ -65,7 +66,7 @@
                 fab:fab_size="mini" />
 
             <com.github.clans.fab.FloatingActionButton
-                android:id="@+id/menu_item3"
+                android:id="@+id/poll_custom"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/single_choice"

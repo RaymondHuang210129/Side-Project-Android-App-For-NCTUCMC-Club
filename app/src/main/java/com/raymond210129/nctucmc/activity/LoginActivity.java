@@ -72,7 +72,7 @@ public class LoginActivity extends Activity {
                 String name = inputName.getText().toString().trim();
                 String password = inputPassword.getText().toString().trim();
 
-                // Check for empty data in the form
+                // Check for empty data in the Form
                 if (!name.isEmpty() && !password.isEmpty()) {
                     // login user
                     checkLogin(name, password);

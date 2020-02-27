@@ -1,9 +1,22 @@
 # 交大國樂小助手 NCTUCMC
-### 簡介 Intro
+### 簡介 Introduction
+
 初次深入接觸Android development，幫國樂社寫一個琴房借用系統，順便嘗試達成理想的功能：
-- 社團聊天室(已完成)、群組聊天室
-- 重要事件通知(已完成)
-- 社員調查系統：填寫練出席表、活動時間投票、意見投票等等
+This is may first attempt on Android development, meant for constructing a practice room reservation system. Some features are also included or in development:
+
+- 社團聊天室(已完成)、群組聊天室 Club member chatroom (completed), group chatroom (dev)
+- 重要事件通知(已完成) Club notifications (completed)
+- 社員調查系統：填寫練出席表、活動時間投票、意見投票等等 (dev)
+
+Google Play: [Link](https://play.google.com/store/apps/details?id=com.raymond210129.nctucmc)
+
+### 程式縮圖 Pictures
+![](https://i.imgur.com/NUHCqTL.png =250x)
+![](https://i.imgur.com/91MxufR.png =250x)
+![](https://i.imgur.com/ntAdZA4.png =250x)
+![](https://i.imgur.com/mhAVRCy.png =250x)
+![](https://i.imgur.com/gFB4Fq9.png =250x)
+
 
 
 

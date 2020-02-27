@@ -1,9 +1,13 @@
 package com.raymond210129.nctucmc.activity.Main.notification;
 
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
@@ -35,6 +39,11 @@ public class CreateNotification extends AppCompatActivity{
         HashMap<String, String> user;
         user = db.getUserDetails();
         final String name = user.get("name");
+
+        Window window = getWindow();
+        ActionBar actionBar = getSupportActionBar();
+        window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.noificationPrimaryDark));
+        actionBar.setBackgroundDrawable(new ColorDrawable(ContextCompat.getColor(getApplicationContext(), R.color.notificationPrimary)));
 
         summit.setOnClickListener(new View.OnClickListener() {
             @Override
