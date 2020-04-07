@@ -11,11 +11,11 @@ This is may first attempt on Android development, meant for constructing a pract
 Google Play: [Link](https://play.google.com/store/apps/details?id=com.raymond210129.nctucmc)
 
 ### 程式縮圖 Pictures
-![](https://i.imgur.com/NUHCqTL.png =250x)
-![](https://i.imgur.com/91MxufR.png =250x)
-![](https://i.imgur.com/ntAdZA4.png =250x)
-![](https://i.imgur.com/mhAVRCy.png =250x)
-![](https://i.imgur.com/gFB4Fq9.png =250x)
+![](https://i.imgur.com/NUHCqTL.png | width=250)
+![](https://i.imgur.com/91MxufR.png | width=250)
+![](https://i.imgur.com/ntAdZA4.png | width=250)
+![](https://i.imgur.com/mhAVRCy.png | width=250)
+![](https://i.imgur.com/gFB4Fq9.png | width=250)
 
 
 
